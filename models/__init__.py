@@ -13,3 +13,11 @@ from .food import Food
 from .entry import Entry
 from .meal import Meal
 from .weight_entry import WeightEntry
+
+__all__ = (
+    "Base",
+    "Food",
+    "Entry",
+    "Meal",
+    "WeightEntry"
+)

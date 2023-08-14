@@ -13,7 +13,7 @@ import tkinter as tk
 from datetime import date
 from tkinter import ttk
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from models.session import SESSIONMAKER
 from models import Meal, Food, Entry, Base
 from gui import Calendar, WeightEntryPopup, ManageMealPopup
 
@@ -24,9 +24,7 @@ class Application(ttk.Frame):
         Initializes the class
         """
         super().__init__(master)
-        self.engine = create_engine("sqlite:///db.sqlite", echo=True)
-        self.sessionmaker = sessionmaker(bind=self.engine)
-        Base.metadata.create_all(self.engine)
+        self.sessionmaker = SESSIONMAKER
         self.master = master
         self.contentwidgets = []
         self.grid(row=0, column=0)
