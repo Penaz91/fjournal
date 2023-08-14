@@ -1,22 +1,26 @@
 """
 This file is part of the FJournal Project.
-Copyright © 2020, Daniele Penazzo. All Rights Reserved.
+Copyright © 2020-2023, Daniele Penazzo. All Rights Reserved.
 The use of this code is governed by the MIT license attached.
 See the LICENSE file for the full license.
 
-Created on: 2020-07-02
+Created on: 2023-08-14
 
 Author: Penaz
 """
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column
 from .common import Base
 
 
 class Meal(Base):
+    """
+    A meal instance where you can save many entries
+    """
     __tablename__ = 'meal'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String)
 
     def __repr__(self):
-        return "<Meal(name=%s)>" % self.name
+        return f"<Meal(name={self.name})>"

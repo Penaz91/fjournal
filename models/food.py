@@ -1,29 +1,33 @@
 """
 This file is part of the FJournal Project.
-Copyright © 2020, Daniele Penazzo. All Rights Reserved.
+Copyright © 2020-2023, Daniele Penazzo. All Rights Reserved.
 The use of this code is governed by the MIT license attached.
 See the LICENSE file for the full license.
 
-Created on: 2020-07-02
+Created on: 2023-08-14
 
 Author: Penaz
 """
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import String, Float
+from sqlalchemy.orm import Mapped, mapped_column
 from .common import Base
 
 
 class Food(Base):
+    """
+    Defines a food to be saved
+    """
     __tablename__ = 'food'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    reference_qty = Column(Float)
-    calories = Column(Float)
-    carb = Column(Float)
-    fat = Column(Float)
-    protein = Column(Float)
-    sugar = Column(Float)
-    fiber = Column(Float)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(150))
+    reference_qty: Mapped[float] = mapped_column(Float)
+    calories: Mapped[float] = mapped_column(Float)
+    carb: Mapped[float] = mapped_column(Float)
+    fat: Mapped[float] = mapped_column(Float)
+    protein: Mapped[float] = mapped_column(Float)
+    sugar: Mapped[float] = mapped_column(Float)
+    fiber: Mapped[float] = mapped_column(Float)
 
     def __repr__(self):
-        return "<Food(name=%s)>" % self.name
+        return f"<Food(name={self.name})>"

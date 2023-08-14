@@ -1,35 +1,40 @@
 """
 This file is part of the FJournal Project.
-Copyright © 2020, Daniele Penazzo. All Rights Reserved.
+Copyright © 2020-2023, Daniele Penazzo. All Rights Reserved.
 The use of this code is governed by the MIT license attached.
 See the LICENSE file for the full license.
 
-Created on: 2020-07-02
+Created on: 2023-08-14
 
 Author: Penaz
 """
+import datetime
+from typing import List
 from sqlalchemy import Column, Integer, Float, ForeignKey, Date
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, mapped_column, Mapped
 from .common import Base
 
 
 class Entry(Base):
+    """
+    A single meal entry
+    """
     __tablename__ = 'entry'
 
-    id = Column(Integer, primary_key=True)
-    date = Column(Date)
-    food_id = Column(Integer, ForeignKey('food.id'))
-    meal_id = Column(Integer, ForeignKey('meal.id'))
-    qty = Column(Float)
-    calories = Column(Float)
-    carb = Column(Float)
-    fat = Column(Float)
-    protein = Column(Float)
-    sugar = Column(Float)
-    fiber = Column(Float)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    date: Mapped[datetime.date] = mapped_column(Date)
+    food_id: Mapped[int] = mapped_column(ForeignKey('food.id'))
+    meal_id: Mapped[int] = mapped_column(ForeignKey('meal.id'))
+    qty: Mapped[float] = mapped_column(Float)
+    calories: Mapped[float] = mapped_column(Float)
+    carb: Mapped[float] = mapped_column(Float)
+    fat: Mapped[float] = mapped_column(Float)
+    protein: Mapped[float] = mapped_column(Float)
+    sugar: Mapped[float] = mapped_column(Float)
+    fiber: Mapped[float] = mapped_column(Float)
 
-    food = relationship("Food")
-    meal = relationship("Meal")
+    food: Mapped[List["Food"]] = relationship("Food")
+    meal: Mapped[List["Meal"]] = relationship("Meal")
 
     def __repr__(self):
-        return "<Entry(food=%s, meal=%s)>" % (self.food_id, self.meal_id)
+        return f"<Entry(food={self.food_id}, meal={self.meal_id})>"
