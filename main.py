@@ -12,13 +12,15 @@ Author: Penaz
 import tkinter as tk
 from datetime import date
 from tkinter import ttk
-from sqlalchemy import create_engine
 from models.session import SESSIONMAKER
 from models import Meal, Food, Entry, Base
 from gui import Calendar, WeightEntryPopup, ManageMealPopup
 
 
 class Application(ttk.Frame):
+    """
+    The main application window
+    """
     def __init__(self, master=None):
         """
         Initializes the class
@@ -28,34 +30,8 @@ class Application(ttk.Frame):
         self.master = master
         self.contentwidgets = []
         self.grid(row=0, column=0)
-        self.create_menus()
+        create_menus(self)
         self.create_widgets()
-
-    def create_menus(self):
-        """
-        Prepares the function menus
-        """
-        menu = tk.Menu(self)
-        # File Menu
-        filemenu = tk.Menu(menu, tearoff=0)
-        filemenu.add_command(label="Quit", command=self.master.quit)
-        # Weight Menu
-        weightmenu = tk.Menu(menu, tearoff=0)
-        weightmenu.add_command(label="Add Weight Entry",
-                               command=self.open_weight_popup)
-        # Journaling Menu
-        journalmenu = tk.Menu(menu, tearoff=0)
-        journalmenu.add_command(label="Manage Meals",
-                                command=self.open_meal_record_popup)
-        # Charts Menu
-        chartmenu = tk.Menu(menu, tearoff=0)
-        chartmenu.add_command(label="Sorry Nothing")
-        # Add menu cascades
-        menu.add_cascade(label="File", menu=filemenu)
-        menu.add_cascade(label="Weight", menu=weightmenu)
-        menu.add_cascade(label="Journaling", menu=journalmenu)
-        menu.add_cascade(label="Charts", menu=chartmenu)
-        self.master.configure(menu=menu)
 
     def create_widgets(self):
         """
