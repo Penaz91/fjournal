@@ -15,6 +15,7 @@ from tkinter import ttk
 from models.session import SESSIONMAKER
 from models import Meal, Food, Entry, Base
 from gui import Calendar, WeightEntryPopup, ManageMealPopup
+from gui.menus import create_menus
 
 
 class Application(ttk.Frame):
