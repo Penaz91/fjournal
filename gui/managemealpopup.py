@@ -37,12 +37,23 @@ class ManageMealPopup(ttk.Frame):
         """
         self.widgets = []
         for index, meal in enumerate(self.meals):
-            self.widgets.append(ttk.Label(self, text=meal.name))
-            self.widgets[index].grid(row=index, column=0)
+            self.widgets.append(
+                (
+                    ttk.Label(self, text=meal.name),
+                    ttk.Button(
+                        self, text="...", command=lambda: None
+                    ),
+                    ttk.Button(
+                        self, text="X", command=lambda: None
+                    )
+                )
+            )
+            for idx, widget in enumerate(self.widgets[index]):
+                widget.grid(row=index, column=idx)
         self.addbtn = ttk.Button(self,
                                  text="Add New Meal",
                                  command=self.add_meal)
-        self.addbtn.grid(row=len(self.widgets)+1, column=0)
+        self.addbtn.grid(row=len(self.widgets)+1, column=0, columnspan=3)
 
     def add_meal(self):
         """
