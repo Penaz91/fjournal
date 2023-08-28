@@ -11,6 +11,7 @@ Author: Penaz
 from tkinter import ttk
 import tkinter as tk
 from models import Meal
+from models.session import SESSIONMAKER
 
 
 class AddMealPopup(ttk.Frame):
@@ -18,14 +19,14 @@ class AddMealPopup(ttk.Frame):
     Defines a popup for adding meals
     """
 
-    def __init__(self, master=None, session=None):
+    def __init__(self, master=None):
         """
         Constructor of the class
         """
         super().__init__(master)
         self.master = master
         self.grid(row=0, column=0)
-        self.session = session
+        self.session = SESSIONMAKER()
         self.mealname = tk.StringVar()
         self.create_widgets()
 

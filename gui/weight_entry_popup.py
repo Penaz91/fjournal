@@ -12,6 +12,7 @@ from datetime import datetime
 from tkinter import ttk
 import tkinter as tk
 from models import WeightEntry
+from models.session import SESSIONMAKER
 from gui import Calendar
 
 
@@ -20,7 +21,7 @@ class WeightEntryPopup(ttk.Frame):
     Defines a popup for entering weight
     """
 
-    def __init__(self, master=None, date=None, session=None):
+    def __init__(self, master=None, date=None):
         """
         Constructor of the class
         """
@@ -30,7 +31,7 @@ class WeightEntryPopup(ttk.Frame):
         self.weight = tk.DoubleVar()
         self.date.set(date.strftime("%Y-%m-%d"))
         self.grid(row=0, column=0)
-        self.session = session
+        self.session = SESSIONMAKER()
         self.create_widgets()
 
     def create_widgets(self):

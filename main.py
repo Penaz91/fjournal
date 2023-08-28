@@ -92,7 +92,7 @@ class Application(ttk.Frame):
         """
         child = tk.Toplevel()
         child.title("Insert new weight entry")
-        WeightEntryPopup(child, self.date, self.sessionmaker())
+        WeightEntryPopup(child, self.date)
 
     def open_meal_record_popup(self):
         """
@@ -100,7 +100,7 @@ class Application(ttk.Frame):
         """
         child = tk.Toplevel()
         child.title("Manage Meals")
-        ManageMealPopup(child, self.sessionmaker())
+        ManageMealPopup(child)
 
     def echo(self, year, month, day):
         self.date = date(year=year, month=month, day=day)
