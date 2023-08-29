@@ -61,4 +61,4 @@ class ManageMealPopup(ttk.Frame):
         """
         child = tk.Toplevel()
         child.title("Add new Meal")
-        AddMealPopup(child, self.session)
+        AddMealPopup(child)
