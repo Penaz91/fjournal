@@ -13,8 +13,8 @@ import tkinter as tk
 from datetime import date
 from tkinter import ttk
 from models.session import SESSIONMAKER
-from models import Meal, Food, Entry, Base
-from gui import Calendar, WeightEntryPopup, ManageMealPopup
+from models import Meal
+from gui import Calendar, WeightEntryPopup, ManageMealPopup, MealPanel
 from gui.menus import create_menus
 
 
@@ -31,6 +31,7 @@ class Application(ttk.Frame):
         self.master = master
         self.contentwidgets = []
         self.grid(row=0, column=0)
+        self.selected_date = None
         create_menus(self)
         self.create_widgets()
 
@@ -54,37 +55,15 @@ class Application(ttk.Frame):
         self.test_btnn = ttk.Button(self.day_details)
         self.test_btnn["text"] = "This is a test_Left"
         self.test_btnn.grid(row=0, column=0, sticky="w")
-        # Right (content)
-        self.content = ttk.Frame(self)
-        self.content.grid(column=1, row=0)
-        self.showToday()
+        # Meal Panel
+        self.meal_panel = MealPanel(self)
+        self.meal_panel.grid(column=1, row=0)
+        self.meal_panel.show_today()
         # Test button to show layout
-        self.add_weight_btn = ttk.Button(self.content)
-        self.add_weight_btn["text"] = "Add a new weight entry"
-        self.add_weight_btn["command"] = self.open_weight_popup
-        self.add_weight_btn.grid(column=1, row=0)
-
-    def showToday(self):
-        """
-        Prepares and shows the "Today" section
-        """
-        session = self.sessionmaker()
-        meals = session.query(Meal).all()
-        self.nomealslbl = None
-        self.refreshbtn = None
-        if meals:
-            for index, meal in enumerate(meals):
-                self.contentwidgets.append(
-                    ttk.Label(self.content, text=meal.name))
-                self.contentwidgets[index].grid(row=index, column=0)
-        else:
-            self.nomealslbl = ttk.Label(self.content,
-                                        text="No meals available")
-            self.nomealslbl.grid(row=0, column=0)
-            self.refreshbtn = ttk.Button(self.content,
-                                         text="Refresh",
-                                         command=self.showToday)
-            self.refreshbtn.grid(row=1, column=0)
+        # self.add_weight_btn = ttk.Button(self.content)
+        # self.add_weight_btn["text"] = "Add a new weight entry"
+        # self.add_weight_btn["command"] = self.open_weight_popup
+        # self.add_weight_btn.grid(column=1, row=0)
 
     def open_weight_popup(self):
         """
@@ -92,7 +71,7 @@ class Application(ttk.Frame):
         """
         child = tk.Toplevel()
         child.title("Insert new weight entry")
-        WeightEntryPopup(child, self.date)
+        WeightEntryPopup(child, self.selected_date)
 
     def open_meal_record_popup(self):
         """
@@ -103,7 +82,7 @@ class Application(ttk.Frame):
         ManageMealPopup(child)
 
     def echo(self, year, month, day):
-        self.date = date(year=year, month=month, day=day)
+        self.selected_date = date(year=year, month=month, day=day)
         print(f"{year}/{month}/{day}")
 
 

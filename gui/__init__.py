@@ -12,3 +12,4 @@ from .calendar import Calendar
 from .weight_entry_popup import WeightEntryPopup
 from .addmealpopup import AddMealPopup
 from .managemealpopup import ManageMealPopup
+from .meal_panel import MealPanel
