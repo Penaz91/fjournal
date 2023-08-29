@@ -4,6 +4,9 @@ from models import Meal
 
 
 class MealPanel(ttk.Frame):
+    """
+    Defines the meal panel, showing the meals of the selected day
+    """
     def __init__(self, parent):
         super().__init__(parent)
         self.nomealslbl = None
@@ -28,14 +31,14 @@ class MealPanel(ttk.Frame):
                     ttk.Label(self, text=meal.name))
                 self.widgets[index].grid(row=index, column=0)
         else:
-            nomealslbl = ttk.Label(
+            self.nomealslbl = ttk.Label(
                 self,
                 text="No meals available"
             )
-            nomealslbl.grid(row=0, column=0)
-            refreshbtn = ttk.Button(
+            self.nomealslbl.grid(row=0, column=0)
+            self.refreshbtn = ttk.Button(
                 self,
                 text="Refresh",
                 command=self.show_today
             )
-            refreshbtn.grid(row=1, column=0)
+            self.refreshbtn.grid(row=1, column=0)
