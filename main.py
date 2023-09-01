@@ -10,11 +10,12 @@ Created on: 2020-07-03
 Author: Penaz
 """
 import tkinter as tk
-from datetime import date
 from tkinter import ttk
 from models.session import SESSIONMAKER
 from models import Meal
-from gui import Calendar, WeightEntryPopup, ManageMealPopup, MealPanel
+from gui import (
+    WeightEntryPopup, ManageMealPopup, MealPanel, Sidebar
+)
 from gui.menus import create_menus
 
 
@@ -40,14 +41,8 @@ class Application(ttk.Frame):
         Creates the widgets for the application
         """
         # Left sidebar
-        self.sidebar = ttk.Frame(self)
+        self.sidebar = Sidebar(self)
         self.sidebar.grid(column=0, row=0, sticky="nsw")
-        # Calendar Container
-        self.calendarcontainer = ttk.Frame(self.sidebar)
-        self.calendarcontainer.grid(row=0, column=0)
-        # Calendar
-        self.calendar = Calendar(self.calendarcontainer, self.echo)
-        self.calendar.grid(row=0, column=0, sticky="nw")
         # Deatils of today
         self.day_details = ttk.Frame(self.sidebar)
         self.day_details.grid(row=1, column=0, sticky="sw")
@@ -60,10 +55,10 @@ class Application(ttk.Frame):
         self.meal_panel.grid(column=1, row=0)
         self.meal_panel.show_today()
         # Test button to show layout
-        # self.add_weight_btn = ttk.Button(self.content)
-        # self.add_weight_btn["text"] = "Add a new weight entry"
-        # self.add_weight_btn["command"] = self.open_weight_popup
-        # self.add_weight_btn.grid(column=1, row=0)
+        self.add_weight_btn = ttk.Button(self)
+        self.add_weight_btn["text"] = "Add a new weight entry"
+        self.add_weight_btn["command"] = self.open_weight_popup
+        self.add_weight_btn.grid(column=2, row=0)
 
     def open_weight_popup(self):
         """
@@ -81,9 +76,6 @@ class Application(ttk.Frame):
         child.title("Manage Meals")
         ManageMealPopup(child)
 
-    def echo(self, year, month, day):
-        self.selected_date = date(year=year, month=month, day=day)
-        print(f"{year}/{month}/{day}")
 
 
 if __name__ == "__main__":

@@ -13,3 +13,14 @@ from .weight_entry_popup import WeightEntryPopup
 from .addmealpopup import AddMealPopup
 from .managemealpopup import ManageMealPopup
 from .meal_panel import MealPanel
+from .sidebar import Sidebar
+
+
+__all__ = (
+    "Calendar",
+    "WeightEntryPopup",
+    "AddMealPopup",
+    "ManageMealPopup",
+    "MealPanel",
+    "Sidebar",
+)
