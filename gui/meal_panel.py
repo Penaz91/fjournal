@@ -42,3 +42,4 @@ class MealPanel(ttk.Frame):
                 command=self.show_today
             )
             self.refreshbtn.grid(row=1, column=0)
+        self.tkraise()
